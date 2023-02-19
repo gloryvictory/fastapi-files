@@ -38,7 +38,7 @@ async def files_get_by_root_folder(root_folder: str):
     return content
 
 
-async def files_get_by_area(area: str):
+async def files_get_by_query(str_query: str):
     content = {"msg": f"Unknown error"}
     # log = set_logger(settings.WELL_FILE_LOG)
     try:
@@ -47,10 +47,10 @@ async def files_get_by_area(area: str):
         #     .order_by(Book.year.desc())
         #     .all()
         # )
-        print(area)
-        all_ = await FILES_M.objects.contains(area)
-            # all(FILES_M.root_folder == area)
-
+        # надо сохранять поисковый запрос...
+        print(str_query)
+        # order_by(Book.year.desc())
+        all_ = await FILES_M.objects.filter(FILES_M.file_path.icontains(str_query)).all()
         all_count = len(all_)
         # log.info(f"count load successfuly: {all_count}")
         content = {
