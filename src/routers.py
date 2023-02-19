@@ -11,5 +11,4 @@ def ping():
     return {"msg": "pong!"}
 
 
-
 api_router.include_router(router_files, prefix="/files", tags=["Файлы"])  #

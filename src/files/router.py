@@ -1,70 +1,60 @@
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy import select, insert
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import text
-from typing import List # Dict,
 
-# from src.database import get_async_session
-from src.files.models import FILES_M
-# from src.files.schemas import FILES_S
+from src.files.services import files_get_all_count, files_get_by_root_folder, files_get_by_area
 
 
 router_files = APIRouter(
-    prefix="/files",
+    # prefix="/files",
     tags=["Файлы"]
 )
 
 
-# operation_type: str,
-# -> list[City]
-#, response_model=List[FILES_S]
-# session: AsyncSession = Depends(get_async_session)
-@router_files.get("")
-async def well_get_all_count() :
-    content = {"msg": f"Unknown error"}
-    # log = set_logger(settings.WELL_FILE_LOG)
-    try:
-        # table_exist = ngo.
-        well_all_count = await FILES_M.objects.count()
-
-        # log.info(f"count load successfuly: {well_all_count}")
-        content = {"msg": "Success", "count": well_all_count}
-        return content
-    except Exception as e:
-        str_err = "Exception occurred " + str(e)
-        content = {"msg": f"reload fail. can't read count from table {FILES_M.Meta.tablename}", "err": str(e)}
-
-        print(str_err)
-        # log.info(str_err)
+@router_files.get(path='/count',
+                 status_code=200,
+                 name='Получить количество Файлов',
+                 tags=['Файлы'],
+                 description='Получает количество Файлов')
+async def get_count():
+    content = await files_get_all_count()
     return content
 
-    # try:
-    #     # .limit(20)
-    #     # query = select(FILES.select()).fetch()
-    #     # await session.execute(text("SET search_path TO public;"))
-    #     query = select(FILES_M).limit(20)
-    #     results = await session.execute(query)
-    #
-    #     # query = select(FILES_M).limit(20)
-    #     # result = await session.execute(query)
-    #
-    #     # result.all(),
+
+# response_model = List[FILES_S],
+@router_files.get(path="/{root_folder}",
+                 status_code=200,
+                 name='Получить список Файлов по ROOT_FOLDER',
+                 tags=['Файлы'],
+                 description='Получает список Файлов по конкретной ROOT_FOLDER'
+                 )
+async def get_by_root_folder(root_folder: str):
+    content = await files_get_by_root_folder(root_folder)
+    return content
+
+
+@router_files.get(path="/{area}",
+                  status_code=200,
+                  name='Получить список Файлов по Площади',
+                  tags=['Файлы'],
+                  description='Получает список Файлов по конкретной Площади'
+                  )
+async def get_by_area(area: str):
+    content = await files_get_by_area(area)
+    return content
+
+
+
+
+
+
+
     #     return {
     #         "status": "success",
     #         "data": [dict(result) for result in results],
     #         "details": None
     #     }
-    # except Exception as e:
-    #     # Передать ошибку разработчикам
-    #     raise HTTPException(status_code=500, detail={
+    # {
     #         "status": "error",
     #         "data": None,
     #         "details": str(e.__str__())
     #     })
 
-# @router.post("")
-# async def add_specific_operations(new_operation: OperationCreate, session: AsyncSession = Depends(get_async_session)):
-#     stmt = insert(operation).values(**new_operation.dict())
-#     await session.execute(stmt)
-#     await session.commit()
-#     return {"status": "success"}
