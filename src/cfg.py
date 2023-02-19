@@ -15,6 +15,7 @@ DB_NAME = os.getenv("DB_NAME", "geodex2")
 DB_USER = os.getenv("DB_USER", "geodex2")
 DB_PASS = os.getenv("DB_PASS", "geodex2pwd")
 DATABASE_URL = f"postgresql+asyncpg://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+# print(DATABASE_URL)
 
 DATETIME_CURRENT = str(strftime("%Y-%m-%d-%H-%M-%S"))
 
@@ -22,4 +23,4 @@ FILE_LOG_NAME = 'fastapi-files'
 FILE_LOG = DATETIME_CURRENT + '_' + FILE_LOG_NAME + '.log'
 FILE_LOG_FORMAT = '%(asctime)s %(levelname)s %(message)s'
 FOLDER_OUT = 'log'
-FOLDER_BASE = os.getenv("FOLDER_BASE", "C:\\Glory\\Projects\\Python\\zsniigg\\fastapi-nsi\\src")
+FOLDER_BASE = os.getenv("FOLDER_BASE", "C:\\Glory\\Projects\\Python\\zsniigg\\fastapi-files\\src")

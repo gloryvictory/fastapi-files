@@ -1,6 +1,6 @@
 from typing import AsyncGenerator
 
-from sqlalchemy import MetaData
+# from sqlalchemy import MetaData
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -12,7 +12,7 @@ from src import cfg
 
 Base = declarative_base()
 
-
+# connect_args={'options': '-csearch_path={}'.format('public')}
 engine = create_async_engine(cfg.DATABASE_URL)
 async_session_maker = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 
