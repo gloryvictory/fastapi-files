@@ -12,9 +12,10 @@ SERVER_PORT = os.getenv("SERVER_PORT", 8000)
 DB_HOST = os.getenv("DB_HOST", "localhost")
 DB_PORT = os.getenv("DB_PORT", 5432)
 DB_NAME = os.getenv("DB_NAME", "geodex2")
+DB_SCHEMA = os.getenv("DB_SCHEMA", "public")
 DB_USER = os.getenv("DB_USER", "geodex2")
 DB_PASS = os.getenv("DB_PASS", "geodex2pwd")
-DATABASE_URL = f"postgresql+asyncpg://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+DB_DSN = f"postgresql+asyncpg://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 # print(DATABASE_URL)
 
 DATETIME_CURRENT = str(strftime("%Y-%m-%d-%H-%M-%S"))

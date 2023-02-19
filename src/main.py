@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from src import cfg
 
 from src.routers import api_router
-# from src.database import database, metadata, engine
+from src.database import database, metadata, engine
 
 app = FastAPI()
 
@@ -21,7 +21,7 @@ app.add_middleware(
 )
 
 
-# app.state.database = database
+app.state.database = database
 
 
 # Root API
@@ -44,20 +44,18 @@ app.include_router(api_router)
 
 @app.on_event("startup")
 async def startup() -> None:
-    pass
-    # database_ = app.state.database
+    database_ = app.state.database
     # metadata.create_all(engine)
-    # if not database_.is_connected:
-    #     print(f"connecting... {database_.url}")
-    #     await database_.connect()
+    if not database_.is_connected:
+        print(f"connecting... {database_.url}")
+        await database_.connect()
 
 
 @app.on_event("shutdown")
 async def shutdown() -> None:
-    pass
-    # database_ = app.state.database
-    # if database_.is_connected:
-    #     await database_.disconnect()
+    database_ = app.state.database
+    if database_.is_connected:
+        await database_.disconnect()
 
 
 if __name__ == "__main__":

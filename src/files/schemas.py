@@ -11,8 +11,9 @@ class FILES_S(BaseModel):
     file_name: str
     file_ext: str
     file_size: str
-    file_ctime: datetime
-    file_mtime: datetime
+    file_ctime: str
+    file_mtime: str
+    date_c: str
     date_m: str
     date_u: str
     date_m: str
@@ -22,3 +23,6 @@ class FILES_S(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+datetime
