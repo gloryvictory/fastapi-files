@@ -31,3 +31,4 @@ class FILES_M(ormar.Model):
     fpath: str = ormar.Text()
     fpath_md5: str = ormar.Text()
     lastupdate: datetime = ormar.DateTime(default=datetime.now)
+
