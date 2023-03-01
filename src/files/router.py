@@ -1,5 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
+from typing import List
 
+
+from src.files.schemas import FILES_S
 from src.files.services import files_get_all_count, files_get_by_root_folder, files_get_by_query, files_get_by_query2
 
 router_files = APIRouter(
@@ -43,6 +46,7 @@ async def get_by_area(str_query: str):
 
 @router_files.get(path="/search2/{str_query}",
                   status_code=200,
+                  # response_model=List[FILES_S],
                   name='Получить список Файлов ...',
                   tags=['Файлы'],
                   description='Получает список Файлов ...'

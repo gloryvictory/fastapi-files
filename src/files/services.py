@@ -70,6 +70,7 @@ async def files_get_by_query(str_query: str):
 
 async def files_get_by_query2(str_query: str):
     content = {"msg": f"Unknown error"}
+    str_query_local =  str_query.strip().replace(" ", "&")
     try:
         print(str_query)
         # all_ = await FILES_M.objects.filter(FILES_M.file_path.icontains(str_query)).all()
@@ -78,10 +79,11 @@ async def files_get_by_query2(str_query: str):
         DB_DSN = f"postgresql://{cfg.DB_USER}:{cfg.DB_PASS}@{cfg.DB_HOST}:{cfg.DB_PORT}/{cfg.DB_NAME}"
 
         conn = await asyncpg.connect(DB_DSN)
+        all_ = await FILES_M.objects.filter()
         # await conn.execute('''
         #         select * from files limit(10)
         #     ''')
-        str_sql = f"SELECT * FROM files WHERE file_path_fts @@ to_tsquery('{str_query}') order by ts_rank(file_path_fts, plainto_tsquery('{str_query}'));"
+        str_sql = f"SELECT * FROM files WHERE file_path_fts @@ to_tsquery('{str_query_local}') order by ts_rank(file_path_fts, plainto_tsquery('{str_query_local}'));"
         row = await conn.fetch( str_sql )
         all_count = len(row)
         # print(f"Counts: {len(row)}")
