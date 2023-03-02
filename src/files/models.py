@@ -1,6 +1,8 @@
 # from sqlalchemy import Table, Column, Integer, String, TIMESTAMP, MetaData, TEXT, BIGINT
 from datetime import datetime
 import ormar
+import ormar_postgres_full_text
+
 
 from src.database import database, metadata
 
@@ -31,4 +33,5 @@ class FILES_M(ormar.Model):
     fpath: str = ormar.Text()
     fpath_md5: str = ormar.Text()
     lastupdate: datetime = ormar.DateTime(default=datetime.now)
+    file_path_fts: str = ormar_postgres_full_text.TSVector()
 

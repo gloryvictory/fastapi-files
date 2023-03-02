@@ -1,9 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from typing import List
 
-
 from src.files.schemas import FILES_S
-from src.files.services import files_get_all_count, files_get_by_root_folder, files_get_by_query, files_get_by_query2
+from src.files.services import files_get_all_count, files_get_by_root_folder, files_get_by_query
 
 router_files = APIRouter(
     # prefix="/files",
@@ -35,33 +34,22 @@ async def get_by_root_folder(root_folder: str):
 
 @router_files.get(path="/search/{str_query}",
                   status_code=200,
-                  name='Получить список Файлов по Площади',
+                  response_model=List[FILES_S],
+                  name='Получить список Файлов по Запросу',
                   tags=['Файлы'],
-                  description='Получает список Файлов по конкретной Площади'
+                  description='Получает список Файлов по Запросу'
                   )
-async def get_by_area(str_query: str):
+async def files_get_fts_by_query(str_query: str):
     content = await files_get_by_query(str_query)
     return content
 
-
-@router_files.get(path="/search2/{str_query}",
-                  status_code=200,
-                  # response_model=List[FILES_S],
-                  name='Получить список Файлов ...',
-                  tags=['Файлы'],
-                  description='Получает список Файлов ...'
-                  )
-async def get_by_area2(str_query: str):
-    content = await files_get_by_query2(str_query)
-    return content
-
-    #     return {
-    #         "status": "success",
-    #         "data": [dict(result) for result in results],
-    #         "details": None
-    #     }
-    # {
-    #         "status": "error",
-    #         "data": None,
-    #         "details": str(e.__str__())
-    #     })
+#     return {
+#         "status": "success",
+#         "data": [dict(result) for result in results],
+#         "details": None
+#     }
+# {
+#         "status": "error",
+#         "data": None,
+#         "details": str(e.__str__())
+#     })
