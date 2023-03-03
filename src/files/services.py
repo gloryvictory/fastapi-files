@@ -46,6 +46,7 @@ async def files_get_by_query(str_query: str):
     try:
         print(str_query)
         all_ = await FILES_M.objects.filter(file_path_fts__match=str_query_local).all()
+        # all_ = await FILES_M.objects.filter(FILES_M.file_path_fts.match(str_query_local)).all()
         all_count = len(all_)
         content = {
             "msg": "Success",

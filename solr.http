@@ -1,0 +1,11 @@
+###
+GET http://localhost:8983/solr/ HTTP/1.1
+Accept: application/json
+Content-type: application/json
+# auth looks like...
+# Authorization: Basic c29scjpHaGJkdG4xMjMhQCM=
+
+
+
+###
+GET http://localhost:8983/solr/#/files/query?q=*:*&q.op=OR&indent=true&useParams= 

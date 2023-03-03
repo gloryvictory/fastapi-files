@@ -34,7 +34,7 @@ async def get_by_root_folder(root_folder: str):
 
 @router_files.get(path="/search/{str_query}",
                   status_code=200,
-                  response_model=List[FILES_S],
+                  # response_model=List[FILES_S],
                   name='Получить список Файлов по Запросу',
                   tags=['Файлы'],
                   description='Получает список Файлов по Запросу'
