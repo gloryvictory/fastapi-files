@@ -1,6 +1,6 @@
 # Dockerfile
-# docker build . -t fastapi-web
-# docker run -d -p 8000:8000 fastapi-web
+# docker build . -t fastapi-files
+# docker run -d -p 8001:8001 fastapi-files
 
 # python:3.10.9-buster
 
